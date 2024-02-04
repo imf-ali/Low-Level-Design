@@ -22,7 +22,7 @@ public class SubscriberWorker implements Runnable{
     synchronized (topicSubscriber){
       do {
         int currOffSet = topicSubscriber.getOffset().get();
-        if(currOffSet >= topic.getMessages().size()){
+        while(currOffSet >= topic.getMessages().size()){
           topicSubscriber.wait();
         }
         // publish message and increase offset
